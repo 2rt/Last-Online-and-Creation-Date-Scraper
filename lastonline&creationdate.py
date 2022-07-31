@@ -1,11 +1,24 @@
 import ctypes, requests
 from threading import Thread
 
-threadc = 5000
+threadc = 100
 
 usernames = open('usernames.txt','r',errors='ignore').read().splitlines()
 total = len(usernames)
+s = requests.session()
+proxy = set()
 
+with open("proxies.txt", "r") as f:
+    file_lines1 = f.readlines()
+    for line1 in file_lines1:
+        proxy.add(line1.strip())
+        
+proxies = {
+    'http': 'http://'+random.choice(list(proxy))
+}
+
+
+r = requests.get('http://www.roblox.com/',proxies=proxies)
 done = 0
 output = []
 
@@ -33,7 +46,7 @@ while 1:
     ctypes.windll.kernel32.SetConsoleTitleW(f'Last Online Scraper | Done: {finished}/{total}')
     if finished == total: break
 
-with open('lastonline&creationdate.txt','w',errors='ignore') as f:
+with open('out.txt','w',errors='ignore') as f:
     f.writelines(output)
 
 input('Finished.')
