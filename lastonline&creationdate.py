@@ -1,4 +1,4 @@
-import ctypes, requests
+import ctypes, requests, random
 from threading import Thread
 
 threadc = 100
